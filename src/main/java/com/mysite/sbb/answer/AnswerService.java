@@ -1,5 +1,7 @@
 package com.mysite.sbb.answer;
 
+import java.util.Optional;
+import com.mysite.sbb.DataNotFoundException;
 import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.question.Question;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +22,20 @@ public class AnswerService {
         answer.setAuthor(author);
         this.answerRepository.save(answer);
         return answer;
+    }
+
+    public Answer getAnswer(Integer id) {
+        Optional<Answer> answer = this.answerRepository.findById(id);
+        if(answer.isPresent()){
+            return answer.get();
+        } else {
+            throw new DataNotFoundException("answer not found");
+        }
+    }
+
+    public void modify(Answer answer, String content){
+        answer.setContent(content);
+        answer.setModifyDate(LocalDateTime.now());
+        this.answerRepository.save(answer);
     }
 }
