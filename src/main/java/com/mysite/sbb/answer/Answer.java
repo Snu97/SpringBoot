@@ -1,8 +1,10 @@
 package com.mysite.sbb.answer;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.user.SiteUser;
@@ -36,4 +38,7 @@ public class Answer {
     private SiteUser author;
 
     private LocalDateTime modifyDate;
+
+    @ManyToMany //다대다 관계 ->ANSWER_VOTER 테이블 생성
+    Set<SiteUser> voter;
 }
